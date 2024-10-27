@@ -1,16 +1,93 @@
+/* Step 1: Adding animation to the logo. */
+@keyframes logoAnimation {
+  0% {
+      width: 25px; /* Starts at a width of 25px */
+      opacity: 0; /* Start with an opacity of 0 */
+  }
+  100% {
+      width: 475px; /* Grows to 475px */
+      opacity: 1; /* End with an opacity of 1 */
+  }
+}
+#logo {
+  animation: logoAnimation 5s forwards; /* Ensure the animationtake 5 seconds and only happen when the page is loaded. */
+}
+
+/* Step 2: Edit the body element to use the Poppins font with serif as a backup. */
+body{
+  font-family: "Poppins", serif;
+  /* use the image “concrete_seamless.png” as a background-image */
+  background-image: url("../images/concrete_seamless.png");
+  /* a backup color of #f1f1f1 */
+  background-color:  #f1f1f1;
+}
+
+/* Step 3*/
+header{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Step 4 */
+.nav_links {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Step 5: Style the links so that they have the same color even after they have been visited. */
+.nav_links a:link,
+.nav_links a:visited {
+  color: #0000EE; 
+}
+
+/* Step 6 Style the card's header's corner radius, border, and background*/
+.card > header {
+  background: #288088;
+  border: 2px Solid #45ADAD;
+  padding: 20px 0;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.card {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+/* Step 7*/
 .card {
   flex-basis: 450px;
 }
 
+/* Step 8*/
 .pricing {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 }
 
+/* Step 9: Style the images in the gallery to have a solid 10px border with a color of #50C7C7, 10px margin on all four sides and a width of 300px.  */
+.gallery {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
+
+.gallery img {
+  border: 10px solid #50C7C7; /* a solid 10px border with a color of #50C7C7 */
+  /* 10px margin on all four sides and a width of 300px.  */
+  margin: 10px; 
+  width: 300px;
+}
+
+/* Create a media query with a breakpoint at 900px */
 @media screen and (min-width: 900px){
   
-  /*step 11 */
+  /* step 11 Style the header and nav_link */
   header{
     display: flex;
     flex-flow: row nowrap;
@@ -20,19 +97,84 @@
     flex-direction: row;
   }
 
-  /* step 12*/
+  /* step 12 Style the pricing and card. */
   .card {
     flex-basis: 275px;
   }
   .pricing{
     align-items: center;
   }
+
+  /* Step 13 Ensure th header remains visible at the top of the screen even as we scroll down. */
+  body > header:first-of-type {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%;
+    z-index: 1000; 
+  }
+
+  body {
+    padding-top: 100px;
+  }
 }
 
-@media all and (prefers-rediced-motion:reduces){
+/* Create a media query and specifications are for when the user prefers reduced motion */
 
+@media all and (prefers-rediced-motion:reduces){
+  /* Remove animation if prefers-reduced-motion is selected in the accessibility preferences. */ 
+  #logo {
+    animation: none; /* Disable animation */
+    width: 475px;
+    opacity: 1; 
+  }
 }
 
 @media print {
+  body {
+    font-family: Arial, Helvetica; /* Change the font family to Arial with a backup value of  Helvetica */
+    background-image: none; /* Remove the background image */
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .nav_links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .card {
+    /* Style a solid border 2px of #45ADDD and use flex-basis of 325px. */
+    flex-basis: 325px;
+    border: 2px solid #45ADDD;
+  }
+
+  .pricing{
+    flex-flow: row nowrap;
+    align-items: center;
+    align-items: flex-end; 
+  }
+
+  .h3{
+    align-items: center;
+  }
+
+  /* Hide the entire gallery */
+  .gallery {
+    display: none; 
+  }
+
+  /*  Hide the last <h2> element within <main> */
+  main h2:last-of-type {
+    display: none; 
+  }
+
+  /* Add the thumbs up for only the second <li> inside each <ul> ends */
+  .card ul li:nth-child(2)::after {
+    content: " 👍"; 
+  }
 
 }
